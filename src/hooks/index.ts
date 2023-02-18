@@ -153,6 +153,6 @@ export const updateEpisodes = async () => {
       })
     );
   } catch (e) {
-    console.error(e);
+    throw new Error(e);
   }
 };

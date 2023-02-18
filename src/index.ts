@@ -12,9 +12,7 @@ dotenv.config();
   try {
     await createAllEpisodes();
     await updateEpisodes();
-    console.log("success");
   } catch {
-    console.error("error");
     throw new Error("error");
   }
 })();
