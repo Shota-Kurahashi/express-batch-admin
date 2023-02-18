@@ -5,7 +5,7 @@
     "lib": ["dom", "es6", "ESNext", "esnext.asynciterable"],
     "skipLibCheck": true,
     "sourceMap": true,
-    "outDir": "./dist/src",
+    "outDir": "./dist",
     "moduleResolution": "node",
     "removeComments": true,
     "noImplicitAny": true,
