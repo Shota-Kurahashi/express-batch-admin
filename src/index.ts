@@ -26,4 +26,4 @@ app.get("/", (_, res: Response) => {
   res.send("Hello World!");
 });
 
-app.listen({ port: process.env.PORT || 3005 });
+app.listen(process.env.PORT || 3000);
