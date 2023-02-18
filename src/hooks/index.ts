@@ -138,7 +138,6 @@ export const updateEpisodes = async () => {
       todatData.map(async (item, index) => {
         if (index % 60 === 0) {
           await new Promise((resolve) => setTimeout(resolve, 90000));
-          console.log("wait 90s");
         }
         const result = await client.request(UPDATE_TODAY_EPISODE, {
           episodes_set_input: {
