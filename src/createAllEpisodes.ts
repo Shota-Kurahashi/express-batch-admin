@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable camelcase */
 import { GraphQLClient } from "graphql-request";
-import { MUTATE_EPISODES } from "src/graphql/query";
-import { getEpisodes } from "src/hooks";
+import { MUTATE_EPISODES } from "./graphql/query";
+import { getEpisodes } from "./hooks";
 
 export const createAllEpisodes = async () => {
   const records = await getEpisodes();

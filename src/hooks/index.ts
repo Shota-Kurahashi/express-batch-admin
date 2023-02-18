@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-promise-executor-return */
 /* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -5,8 +6,8 @@ import axios from "axios";
 import { parse } from "csv-parse/sync";
 import { XMLParser } from "fast-xml-parser";
 import { GraphQLClient } from "graphql-request";
-import { GET_HAS_TID_WORKS, UPDATE_TODAY_EPISODE } from "src/graphql/query";
-import { HasEpisodeWork, Item, ResultData } from "src/types";
+import { GET_HAS_TID_WORKS, UPDATE_TODAY_EPISODE } from "../graphql/query";
+import { HasEpisodeWork, Item, ResultData } from "../types";
 
 export const sliceByNumber = (array: string[]) => {
   const length = Math.ceil(array.length / 2);
