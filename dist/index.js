@@ -4,6 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const node_schedule_1 = __importDefault(require("node-schedule"));
+node_schedule_1.default.scheduleJob("* * * * * *", function () {
+    const date = new Date();
+    console.log("hh:mm:30に実行します" + date);
+});
 const app = (0, express_1.default)();
 app.get("/", (_, res) => {
     res.send("Hello world");
