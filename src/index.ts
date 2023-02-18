@@ -18,3 +18,5 @@ scheduleJob("46 20 * * * *", async () => {
     throw new Error("error");
   }
 });
+
+console.log("OK");
