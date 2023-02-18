@@ -1,13 +1,18 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import * as dotenv from "dotenv";
 import express from "express";
-import schedule from "node-schedule";
+import { scheduleJob } from "node-schedule";
+
+dotenv.config();
+
+scheduleJob("30 * * * * *", () => {
+  const date = new Date();
+  console.log(date);
+});
 
 const app = express();
 
 app.get("/", (_, res) => {
-  schedule.scheduleJob("1 * * * * *", () => {
-    const date = new Date();
-    console.log(`hh:mm:30に実行します${date}`);
-  });
   res.send("Hello world");
 });
 

@@ -22,6 +22,7 @@ module.exports = {
   ],
   root: true,
   rules: {
+    "@typescript-eslint/no-unused-vars": "error",
     "class-methods-use-this": "off",
     "import/no-duplicates": "error",
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
