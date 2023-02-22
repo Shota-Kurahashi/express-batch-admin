@@ -29,3 +29,16 @@ export type Item = {
   title: string;
   "tv:feed": TvFeed;
 };
+
+type Episode = {
+  has_next_episode: boolean;
+  has_prev_episode: boolean;
+  id: string;
+  number: number;
+  title: string;
+  work_id: number;
+};
+
+export type ALLEpisodes = {
+  episodes: Episode[];
+};

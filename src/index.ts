@@ -5,6 +5,7 @@
 import * as dotenv from "dotenv";
 import { createAllEpisodes } from "./createAllEpisodes";
 import { updateEpisodes } from "./hooks";
+import { insertNextAndPrevEpisodeIds } from "./insertNextAndPrevEpisodeIds";
 
 dotenv.config();
 
@@ -12,7 +13,8 @@ dotenv.config();
   try {
     await createAllEpisodes();
     await updateEpisodes();
-  } catch {
-    throw new Error("error");
+    await insertNextAndPrevEpisodeIds();
+  } catch (e) {
+    throw new Error(e);
   }
 })();

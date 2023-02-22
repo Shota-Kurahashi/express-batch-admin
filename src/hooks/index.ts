@@ -6,8 +6,12 @@ import axios from "axios";
 import { parse } from "csv-parse/sync";
 import { XMLParser } from "fast-xml-parser";
 import { GraphQLClient } from "graphql-request";
-import { GET_HAS_TID_WORKS, UPDATE_TODAY_EPISODE } from "../graphql/query";
-import { HasEpisodeWork, Item, ResultData } from "../types";
+import {
+  GET_ALL_EPISODES,
+  GET_HAS_TID_WORKS,
+  UPDATE_TODAY_EPISODE,
+} from "../graphql/query";
+import { ALLEpisodes, HasEpisodeWork, Item, ResultData } from "../types";
 
 export const sliceByNumber = (array: string[]) => {
   const length = Math.ceil(array.length / 2);
@@ -154,4 +158,81 @@ export const updateEpisodes = async () => {
   } catch (e) {
     throw new Error(e);
   }
+};
+
+export const getAllEpisodes = async () => {
+  const client = new GraphQLClient(process.env.ENDPOINT as string, {
+    headers: {
+      "x-hasura-admin-secret": process.env.ADMIN_SECRET as string,
+    },
+  });
+
+  const data = await client.request<ALLEpisodes>(GET_ALL_EPISODES);
+
+  return data;
+};
+
+export const getInsertNextAndPrevEpisodeIdData = async () => {
+  const allEpisodes = await getAllEpisodes();
+
+  const insertData = allEpisodes.episodes.map((episode) => {
+    const { has_next_episode, has_prev_episode, work_id, number, title } =
+      episode;
+
+    const nextEpisode = allEpisodes.episodes.find(
+      (item) => item.work_id === work_id && item.number === number + 1
+    );
+
+    const prevEpisode = allEpisodes.episodes.find(
+      (item) => item.work_id === work_id && item.number === number - 1
+    );
+
+    if (has_next_episode && has_prev_episode && nextEpisode && prevEpisode) {
+      return {
+        has_next_episode,
+        has_prev_episode,
+        next_episode_id: nextEpisode?.id,
+        number,
+        prev_episode_id: prevEpisode?.id,
+        title,
+        work_id,
+      };
+    }
+
+    if (has_next_episode && nextEpisode) {
+      return {
+        has_next_episode,
+        has_prev_episode,
+        next_episode_id: nextEpisode?.id,
+        number,
+        prev_episode_id: null,
+        title,
+        work_id,
+      };
+    }
+
+    if (has_prev_episode && prevEpisode) {
+      return {
+        has_next_episode,
+        has_prev_episode,
+        next_episode_id: null,
+        number,
+        prev_episode_id: prevEpisode?.id,
+        title,
+        work_id,
+      };
+    }
+
+    return {
+      has_next_episode,
+      has_prev_episode,
+      next_episode_id: null,
+      number,
+      prev_episode_id: null,
+      title,
+      work_id,
+    };
+  });
+
+  return insertData;
 };
