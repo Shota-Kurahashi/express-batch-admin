@@ -17,10 +17,7 @@ export const MUTATE_EPISODES = gql`
   mutation MutateEpisodes($episodes: [episodes_insert_input!]!) {
     insert_episodes(
       objects: $episodes
-      on_conflict: {
-        constraint: episodes_work_id_number_key
-        update_columns: [has_next_episode, has_prev_episode]
-      }
+      on_conflict: { constraint: episodes_work_id_number_key }
     ) {
       returning {
         created_at
