@@ -22,7 +22,11 @@ export const sliceByNumber = (array: string[]) => {
 };
 
 export const getEpisodes = async () => {
-  const client = new GraphQLClient(process.env.ENDPOINT as string);
+  const client = new GraphQLClient(process.env.ENDPOINT as string, {
+    headers: {
+      "x-hasura-admin-secret": process.env.ADMIN_SECRET as string,
+    },
+  });
   const data = await fetch(process.env.CSV_ENDPOINT as string).then((r) =>
     r.text()
   );
